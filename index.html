@@ -54,13 +54,13 @@
   <script src="./slick/slick.js" type="text/javascript" charset="utf-8"></script>
   <script type="text/javascript">
     var oldrequest = false;
-    
+
     $(document).on('ready', function() {
       updateImg();
     });
 
     function sliderLoad() {
-      
+
       try{
         $("section.main").slick('unslick');
       }
@@ -80,7 +80,7 @@
     }
 
     var updateImg = function(){
-      $.getJSON('http://prod.initt.io/xenittmedia/default/get_images.json?id=d38d16d1-db94-44c5-a80e-1177a2b5cedf',function(data){
+      $.getJSON('https://prod.initt.io/xenittmedia/default/get_images.json?id=d38d16d1-db94-44c5-a80e-1177a2b5cedf',function(data){
         if(oldrequest != JSON.stringify(data)){
           oldrequest = JSON.stringify(data);
           if(data.lenght>0){
