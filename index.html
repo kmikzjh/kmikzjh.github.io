@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Llanquihue | Xmedia</title>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="./slick/slick.css">
-  <link rel="stylesheet" type="text/css" href="./slick/slick-theme.css">
-  <style type="text/css">
-    html, body {
-      margin: 0;
-      padding: 0;
+    <title>Llanquihue | Xmedia</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="./slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="./slick/slick-theme.css">
+    <style type="text/css">
+    html,
+    body {
+        margin: 0;
+        padding: 0;
     }
 
     * {
-      box-sizing: border-box;
+        box-sizing: border-box;
     }
 
     .slider {
@@ -21,21 +23,22 @@
     }
 
     .slick-slide {
-      margin: 0px;
+        margin: 0px;
     }
 
     .slick-slide img {
-      width: 100%;
+        width: 100%;
     }
 
     .slick-prev:before,
     .slick-next:before {
         color: black;
     }
-    .photo-info{
+
+    .photo-info {
         position: absolute;
         z-index: 99999;
-        float:left;
+        float: left;
         width: 100%;
         text-align: center;
         margin-top: 40%;
@@ -43,61 +46,61 @@
         color: #fff;
         font-size: 2em;
     }
-  </style>
+    </style>
 </head>
+
 <body>
-
-  <section class="main slider">
-  </section>
-
-  <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
-  <script src="./slick/slick.js" type="text/javascript" charset="utf-8"></script>
-  <script type="text/javascript">
+    <section class="main slider">
+    </section>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+    <script src="./slick/slick.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
     var oldrequest = false;
 
     $(document).on('ready', function() {
-      updateImg();
+        updateImg();
     });
 
     function sliderLoad() {
 
-      try{
-        $("section.main").slick('unslick');
-      }
+        try {
+            $("section.main").slick('unslick');
+        } catch (e) {
+            console.log("aoisdha");
+        }
 
-      catch(e){
-        console.log("aoisdha");
-      }
-
-      $(".main").slick({
-          dots: false,
-          infinite: true,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          autoplay: true,
-          autoplaySpeed: 5000
-      });
-    }
-
-    var updateImg = function(){
-      $.getJSON('https://prod.initt.io/xenittmedia/default/get_images.json?id=d38d16d1-db94-44c5-a80e-1177a2b5cedf',function(data){
-        if(oldrequest != JSON.stringify(data)){
-          oldrequest = JSON.stringify(data);
-          if(data.lenght>0){
-            $("section.main").empty();
-            }
-              data.forEach(function(d){
-                $("section.main").append('<div><h4 class="photo-info">'+d.description+'</h4><img src="'+d.image+'"></div>');
-              });
-              sliderLoad();
-              }
+        $(".main").slick({
+            dots: false,
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 5000
         });
     }
 
-  setInterval(updateImg,10000);
+    var updateImg = function() {
+        $.getJSON('https://prod.initt.io/xenittmedia/default/get_images.json?id=d38d16d1-db94-44c5-a80e-1177a2b5cedf', function(data) {
+            if (oldrequest != JSON.stringify(data)) {
+                oldrequest = JSON.stringify(data);
+                if (data.lenght > 0) {
+                    try {
+                        $("section.main").slick('unslick');
+                    } catch (e) {
+                        console.log("aoisdha");
+                    }
+                    $("section.main").empty();
+                }
+                data.forEach(function(d) {
+                    $("section.main").append('<div><h4 class="photo-info">' + d.description + '.</h4><img src="' + d.image + '"></div>');
+                });
+                sliderLoad();
+            }
+        });
+    }
 
-
-  </script>
-
+    setInterval(updateImg, 10000);
+    </script>
 </body>
+
 </html>
